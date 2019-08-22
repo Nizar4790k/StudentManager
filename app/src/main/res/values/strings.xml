@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">StudentManager</string>
+    <string name="photo_button">Add a photo</string>
+    <string name="name_text_view">Name</string>
+    <string name="born_date_text_view">Born Date</string>
+    <string name="dni_text_view">DNI</string>
+    <string name="university_text_view">University</string>
+    <string name="female_text">Female</string>
+    <string name="male_text">Male</string>
+    <string name="gpa_text_view">GPA</string>
+    <string name="period_text">Period</string>
+    <string name="sex_text">Sex :</string>
+    <string name="career_text">Career</string>
+    <string name="name_text">Name</string>
+    <string name="add_student">Add a student </string>
+
+    
+    
 </resources>
