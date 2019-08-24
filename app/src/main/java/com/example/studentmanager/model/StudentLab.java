@@ -1,4 +1,4 @@
-package com.example.studentmanager.model.model;
+package com.example.studentmanager.model;
 
 import java.util.List;
 
