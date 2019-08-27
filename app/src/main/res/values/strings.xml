@@ -2,7 +2,7 @@
     <string name="app_name">StudentManager</string>
     <string name="photo_button">Add photo</string>
     <string name="name_text_view">Name</string>
-    <string name="born_date_text_view">Born Date</string>
+    <string name="birth_date_button">Add birth date</string>
     <string name="dni_text_view">DNI</string>
     <string name="university_text_view">University</string>
     <string name="female_text">Female</string>
@@ -14,6 +14,7 @@
     <string name="name_text">Name</string>
     <string name="add_student">Add a student </string>
     <string name="add_student_button">Add</string>
+    <string name="date_birth_dialog">Date of birth:</string>
 
 
     

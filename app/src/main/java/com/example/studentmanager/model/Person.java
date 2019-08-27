@@ -5,15 +5,15 @@ import java.util.Date;
 public  abstract class Person  {
 
     private String mName;
-    private Date mBornDate;
+    private Date mBirthDate;
     private  String mDni;
     private  boolean mSex;   // If sex==true then male else female
     private String mPhoto;
 
 
-    public Person(String name, Date bornDate, String dni, boolean sex, String photo) {
+    public Person(String name, Date birthDate, String dni, boolean sex, String photo) {
         mName = name;
-        mBornDate = bornDate;
+        mBirthDate = birthDate;
         mDni = dni;
         mSex = sex;
         mPhoto = photo;
@@ -27,12 +27,12 @@ public  abstract class Person  {
         mName = name;
     }
 
-    public Date getBornDate() {
-        return mBornDate;
+    public Date getBirthDate() {
+        return mBirthDate;
     }
 
-    public void setBornDate(Date bornDate) {
-        mBornDate = bornDate;
+    public void setBirthDate(Date birthDate) {
+        mBirthDate = birthDate;
     }
 
     public String getDni() {
