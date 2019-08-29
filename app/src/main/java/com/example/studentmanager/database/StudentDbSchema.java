@@ -11,10 +11,10 @@ public class StudentDbSchema  {
         public static final class Cols {                          // Defining a Schema
 
             public static  final String NAME= "uuid";
-            public static final String BORN_DATE="born_date";
+            public static final String BIRTH_DATE ="born_date";
             public static final String SEX="sex";
             public static final String UNIVERSITY="university";
-            public static final String DATE="career";
+            public static final String CAREER ="career";
             public static final String PERIOD="period";
             public static final String GPA="gpa";
             public static final String DNI="dni";

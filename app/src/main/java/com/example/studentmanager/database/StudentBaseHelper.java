@@ -23,8 +23,8 @@ public class StudentBaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+StudentDbSchema.StudentTable.NAME +"("+
                 "_id integer primary key autoincrement,"+
                 StudentTable.Cols.NAME +"," +
-                StudentTable.Cols.BORN_DATE+","+
-                StudentTable.Cols.DATE+","+
+                StudentTable.Cols.BIRTH_DATE +","+
+                StudentTable.Cols.CAREER+","+
                 StudentTable.Cols.SEX+","+
                 StudentTable.Cols.PERIOD + "," +
                 StudentTable.Cols.GPA+ ","+

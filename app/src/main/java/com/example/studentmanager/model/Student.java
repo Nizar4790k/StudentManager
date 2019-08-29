@@ -8,14 +8,14 @@ public class Student extends  Person {
     private  String mUniversity;
     private  String mCareer;
     private  int mPeriod;
-    private double mGpa;
+    private float mGpa;
 
-    public Student(String name, Date bornDate, String dni, boolean sex, String photo, String university, String career, int period,double gpa) {
+    public Student(String name, Date bornDate, String dni, boolean sex, String photo, String university, String career, int period,float gpa) {
         super(name, bornDate, dni, sex, photo);
         mUniversity = university;
         mCareer = career;
         mPeriod = period;
-        mGpa = gpa;
+        setGpa(gpa);
 
     }
 
@@ -46,4 +46,18 @@ public class Student extends  Person {
     public void setPeriod(int period) {
         mPeriod = period;
     }
+
+    public float getGpa() {
+        return mGpa;
+    }
+
+    public void setGpa(float gpa) {
+        mGpa = gpa;
+    }
+
+
+
+
+
+
 }

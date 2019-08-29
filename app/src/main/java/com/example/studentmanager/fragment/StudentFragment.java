@@ -1,6 +1,7 @@
 package com.example.studentmanager.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,10 +17,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.studentmanager.R;
+import com.example.studentmanager.activity.StudentListActivity;
 import com.example.studentmanager.model.Student;
+import com.example.studentmanager.model.StudentLab;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -47,6 +53,9 @@ public class StudentFragment extends Fragment {
 
     private  static final String DIALOG_DATE ="DialogDate";
     private static final int REQUEST_DATE=0;
+
+    private static  final String STUDENT_CREATED = "StudentCreated";
+
     Date mDate;
 
 
@@ -54,6 +63,8 @@ public class StudentFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
 
 
     }
@@ -101,7 +112,14 @@ public class StudentFragment extends Fragment {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
                         mDate = new GregorianCalendar(year,month,day+1).getTime();
-                        mBtnBirthDate.setText(mDate.toString());
+
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                        String date =  sdf.format(mDate);   // Preparing the date to get inserted
+
+
+                        mBtnBirthDate.setText(date);
 
 
                     }
@@ -142,6 +160,22 @@ public class StudentFragment extends Fragment {
                 String career = mTxtCareer.getText().toString();
                 int period = Integer.parseInt(mTxtPeriod.getText().toString());
                 float gpa = Float.parseFloat(mTxtGpa.getText().toString());
+
+                Student student = new Student(name,mDate,dni,sex,null,university,career,period,gpa);
+
+                StudentLab.get(getContext()).addStudent(student);
+
+                Intent intent = new Intent(getContext(), StudentListActivity.class);
+
+
+
+                startActivity(intent);
+
+
+
+
+
+
 
 
             }
