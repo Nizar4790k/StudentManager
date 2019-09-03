@@ -1,7 +1,9 @@
 package com.example.studentmanager.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,21 +19,23 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.example.studentmanager.R;
+import com.example.studentmanager.activity.StudentActivity;
 import com.example.studentmanager.activity.StudentListActivity;
 import com.example.studentmanager.model.Student;
 import com.example.studentmanager.model.StudentLab;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.UUID;
 
 public class StudentFragment extends Fragment {
+
+    private  static String STUDENT_UUID="StudentUUID";
+
 
     private EditText mTxtName;
 
@@ -46,7 +51,7 @@ public class StudentFragment extends Fragment {
     private DatePickerDialog mDialog;
 
 
-    private Button mAddStudenBtn;
+    private Button mAddOrUpdateStudent;
     private Button mBtnBirthDate;
 
     private Student mStudent;
@@ -69,9 +74,16 @@ public class StudentFragment extends Fragment {
 
     }
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
+        setMenuVisibility(false);
+
+
 
 
 
@@ -135,6 +147,8 @@ public class StudentFragment extends Fragment {
 
 
 
+
+
                 mDialog.show();
 
 
@@ -148,10 +162,14 @@ public class StudentFragment extends Fragment {
     });
 
 
-        mAddStudenBtn = v.findViewById(R.id.button_add_student);
-        mAddStudenBtn.setOnClickListener(new View.OnClickListener() {
+        mAddOrUpdateStudent = v.findViewById(R.id.button_add_student);
+
+
+        mAddOrUpdateStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                StudentLab studentLab = StudentLab.get(getContext());
 
                 String name = mTxtName.getText().toString();
                 String dni = mTxtDni.getText().toString();
@@ -161,9 +179,27 @@ public class StudentFragment extends Fragment {
                 int period = Integer.parseInt(mTxtPeriod.getText().toString());
                 float gpa = Float.parseFloat(mTxtGpa.getText().toString());
 
-                Student student = new Student(name,mDate,dni,sex,null,university,career,period,gpa);
 
-                StudentLab.get(getContext()).addStudent(student);
+                 String  id = getActivity().getIntent().getStringExtra(STUDENT_UUID);
+
+                 Student student;
+                 if(id!=null){
+
+                     UUID uuid = UUID.fromString(id);
+                    student = new Student(uuid,name,mDate,dni,sex,null,university,career,period,gpa);
+                    studentLab.updateStudent(student);
+
+
+                }   else {
+
+                     student = new Student(name,mDate,dni,sex,null,university,career,period,gpa);
+                     studentLab.addStudent(student);
+
+                }
+
+
+
+
 
                 Intent intent = new Intent(getContext(), StudentListActivity.class);
 
@@ -182,6 +218,45 @@ public class StudentFragment extends Fragment {
         });
 
 
+
+         String  id = getActivity().getIntent().getStringExtra(STUDENT_UUID);
+        if(id!=null){
+
+            mStudent = StudentLab.get(getContext()).getStudentById(UUID.fromString(id));
+
+            mTxtName.setText(mStudent.getName());
+            mTxtDni.setText(mStudent.getDni());
+            mBtnBirthDate.setText(mStudent.getBirthDate().toString());
+            mTxtGpa.setText(String.valueOf(mStudent.getGpa()));
+            mTxtPeriod.setText(String.valueOf(mStudent.getPeriod()));
+            mTxtCareer.setText(mStudent.getCareer());
+            mTxtUniversity.setText(mStudent.getUniversity());
+
+
+            mRadMale.setSelected(mStudent.isSex());
+            mRadFemale.setSelected(mStudent.isSex());
+
+            setMenuVisibility(true);
+
+
+
+            Drawable icon;
+
+
+            icon = getResources().getDrawable(R.drawable.edit_icon);
+
+
+            mAddOrUpdateStudent.setCompoundDrawables(icon,null,null,null);
+            mAddOrUpdateStudent.setText(R.string.student_edit);
+
+
+
+
+
+        }
+
+
+
         return  v;
     }
 
@@ -193,6 +268,40 @@ public class StudentFragment extends Fragment {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.delete_student:
+
+                StudentLab.get(getContext()).deleteStudent(mStudent);
+
+                Intent intent = new Intent(getContext(),StudentListActivity.class);
+
+                startActivity(intent);
+
+
+                break;
+
+        }
+
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public static  Intent newIntent(Context context, UUID uuid){
+
+        Intent intent = new Intent(context, StudentActivity.class);
+
+        intent.putExtra(STUDENT_UUID,uuid.toString());
+
+
+
+        return intent;
+
+    }
 
 
 

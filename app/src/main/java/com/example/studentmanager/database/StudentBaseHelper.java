@@ -29,7 +29,8 @@ public class StudentBaseHelper extends SQLiteOpenHelper {
                 StudentTable.Cols.PERIOD + "," +
                 StudentTable.Cols.GPA+ ","+
                 StudentTable.Cols.DNI+","+
-                StudentTable.Cols.UNIVERSITY+")"
+                StudentTable.Cols.UNIVERSITY+ ","+
+                        StudentTable.Cols.UUID+")"
 
                 );
 

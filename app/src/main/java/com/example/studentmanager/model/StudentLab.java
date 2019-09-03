@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.UUID;
 
 public class StudentLab {
 
@@ -52,6 +53,7 @@ public class StudentLab {
         values.put(StudentDbSchema.StudentTable.Cols.PERIOD,s.getPeriod());
         values.put(StudentDbSchema.StudentTable.Cols.UNIVERSITY,s.getUniversity());
         values.put(StudentDbSchema.StudentTable.Cols.GPA,s.getGpa());
+        values.put(StudentDbSchema.StudentTable.Cols.UUID,s.getId().toString());
 
 
             return  values;
@@ -101,16 +103,54 @@ public class StudentLab {
 
     public void  deleteStudent(Student student){
 
+        String uuidString = student.getId().toString();
+
+        mDatabase.delete(StudentDbSchema.StudentTable.NAME
+                ,StudentDbSchema.StudentTable.Cols.UUID +" = ? ",new String[]{uuidString});
+
     }
 
     public void updateStudent(Student student){
 
+        String uuidString = student.getId().toString();
+
+        ContentValues values = getContentValues(student);
+
+        mDatabase.update(StudentDbSchema.StudentTable.NAME,values,
+                StudentDbSchema.StudentTable.Cols.UUID + "= ?",
+                new String[] {uuidString}
+                );
+
+
+
     }
 
 
-    public  Student getStudentById(int id){
+    public  Student getStudentById(UUID uuid){
 
-        return null;
+        StudentCursorWrapper cursor =
+                queryStudent(StudentDbSchema.StudentTable.Cols.UUID+" = ?",
+                        new String[] {uuid.toString()}
+                        );
+
+
+        try{
+            if(cursor.getColumnCount()==0){
+                return null;
+            }
+
+
+                cursor.moveToFirst();
+
+
+            return cursor.getStudent();
+
+
+        }finally {
+            cursor.close();
+        }
+
+
     }
 
     private StudentCursorWrapper queryStudent(String whereClause, String [] whereArgs){

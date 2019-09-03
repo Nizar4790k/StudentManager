@@ -47,7 +47,7 @@ public class StudentListFragment extends Fragment {
 
     }
 
-    private  class StudentHolder extends  RecyclerView.ViewHolder{
+    private  class StudentHolder extends  RecyclerView.ViewHolder implements View.OnClickListener {
 
 
         private TextView mNameTextView;
@@ -60,6 +60,7 @@ public class StudentListFragment extends Fragment {
 
             mNameTextView = itemView.findViewById(R.id.student_name);
             mDniTextView = itemView.findViewById(R.id.student_dni);
+            itemView.setOnClickListener(this);
 
         }
 
@@ -73,6 +74,15 @@ public class StudentListFragment extends Fragment {
 
         }
 
+        @Override
+        public void onClick(View v) {
+
+            Intent intent = StudentFragment.newIntent(getContext(),mStudent.getId());
+
+            startActivity(intent);
+
+
+        }
     }
 
 

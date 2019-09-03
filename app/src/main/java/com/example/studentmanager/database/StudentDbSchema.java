@@ -10,7 +10,7 @@ public class StudentDbSchema  {
         public static final String NAME ="students";
         public static final class Cols {                          // Defining a Schema
 
-            public static  final String NAME= "uuid";
+            public static  final String NAME= "name";
             public static final String BIRTH_DATE ="born_date";
             public static final String SEX="sex";
             public static final String UNIVERSITY="university";
@@ -18,6 +18,7 @@ public class StudentDbSchema  {
             public static final String PERIOD="period";
             public static final String GPA="gpa";
             public static final String DNI="dni";
+            public static final String UUID="uuid";
 
 
         }

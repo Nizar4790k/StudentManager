@@ -11,6 +11,10 @@ public  abstract class Person  {
     private String mPhoto;
 
 
+    public Person(){
+
+    }
+
     public Person(String name, Date birthDate, String dni, boolean sex, String photo) {
         mName = name;
         mBirthDate = birthDate;

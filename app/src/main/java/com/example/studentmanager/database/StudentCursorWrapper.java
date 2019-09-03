@@ -8,6 +8,7 @@ import com.example.studentmanager.model.Student;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class StudentCursorWrapper extends CursorWrapper {
 
@@ -27,6 +28,12 @@ public class StudentCursorWrapper extends CursorWrapper {
         String university = getString(getColumnIndex(StudentDbSchema.StudentTable.Cols.UNIVERSITY));
         String dateText = getString(getColumnIndex(StudentDbSchema.StudentTable.Cols.BIRTH_DATE));
         String career =getString(getColumnIndex(StudentDbSchema.StudentTable.Cols.CAREER));
+        String id = getString(getColumnIndex(StudentDbSchema.StudentTable.Cols.UUID));
+
+        UUID uuid = UUID.fromString(id);
+
+
+
 
 
         Date date = new Date();
@@ -44,7 +51,7 @@ public class StudentCursorWrapper extends CursorWrapper {
             e.printStackTrace();
         }
 
-        Student student = new Student(name,date,dni,sex,null,university,career,period,gpa);
+        Student student = new Student(uuid,name,date,dni,sex,null,university,career,period,gpa);
 
 
 
