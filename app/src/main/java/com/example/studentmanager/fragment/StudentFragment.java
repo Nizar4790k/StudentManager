@@ -36,6 +36,8 @@ public class StudentFragment extends Fragment {
 
     private  static String STUDENT_UUID="StudentUUID";
 
+    private final  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
 
     private EditText mTxtName;
 
@@ -126,7 +128,7 @@ public class StudentFragment extends Fragment {
                         mDate = new GregorianCalendar(year,month,day+1).getTime();
 
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
 
                         String date =  sdf.format(mDate);   // Preparing the date to get inserted
 
@@ -179,6 +181,10 @@ public class StudentFragment extends Fragment {
                 int period = Integer.parseInt(mTxtPeriod.getText().toString());
                 float gpa = Float.parseFloat(mTxtGpa.getText().toString());
 
+                  if(mDate==null){
+                      mDate=mStudent.getBirthDate();
+                  }
+
 
                  String  id = getActivity().getIntent().getStringExtra(STUDENT_UUID);
 
@@ -226,7 +232,7 @@ public class StudentFragment extends Fragment {
 
             mTxtName.setText(mStudent.getName());
             mTxtDni.setText(mStudent.getDni());
-            mBtnBirthDate.setText(mStudent.getBirthDate().toString());
+            mBtnBirthDate.setText(sdf.format(mStudent.getBirthDate()));
             mTxtGpa.setText(String.valueOf(mStudent.getGpa()));
             mTxtPeriod.setText(String.valueOf(mStudent.getPeriod()));
             mTxtCareer.setText(mStudent.getCareer());
